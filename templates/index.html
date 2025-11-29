@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monitoring Suricata</title>
+</head>
+<body>
+    <h1>Dashboard Monitoring Suricata</h1>
+
+    <ul id="alertList"></ul>
+
+    <script>
+        async function loadAlerts() {
+            let res = await fetch("/alerts");
+            let data = await res.json();
+
+            let list = document.getElementById("alertList");
+            list.innerHTML = "";
+
+            data.forEach(item => {
+                let li = document.createElement("li");
+                li.textContent = item;
+                list.appendChild(li);
+            });
+        }
+
+        setInterval(loadAlerts, 2000); // otomatis update tiap 2 detik
+    </script>
+</body>
+</html>
