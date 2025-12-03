@@ -1,29 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Monitoring Suricata</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Monitoring Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </head>
 <body>
-    <h1>Dashboard Monitoring Suricata</h1>
 
-    <ul id="alertList"></ul>
+<header class="header">
+    <h1>Security Monitoring Dashboard</h1>
+    <div id="alert-box" class="alert-box">No Alerts</div>
+</header>
 
-    <script>
-        async function loadAlerts() {
-            let res = await fetch("/alerts");
-            let data = await res.json();
+<section class="grid-container">
+    <div class="card logs">
+        <h3>Real-time Logs</h3>
+        <pre id="log-output">Waiting logs...</pre>
+    </div>
 
-            let list = document.getElementById("alertList");
-            list.innerHTML = "";
+    <div class="card traffic">
+        <h3>Traffic & Requests</h3>
+        <canvas id="chartTraffic"></canvas>
+    </div>
 
-            data.forEach(item => {
-                let li = document.createElement("li");
-                li.textContent = item;
-                list.appendChild(li);
-            });
-        }
+    <div class="card alert">
+        <h3>IDS/IPS Alerts</h3>
+        <ul id="ids-list"></ul>
+    </div>
 
-        setInterval(loadAlerts, 2000); // otomatis update tiap 2 detik
-    </script>
+    <div class="card stat">
+        <h3>Attack Statistics</h3>
+        <canvas id="chartStats"></canvas>
+    </div>
+
+    <div class="card resource">
+        <h3>Server Resource Usage</h3>
+        <canvas id="chartResource"></canvas>
+    </div>
+
+    <div class="card firewall">
+        <h3>Blocked IPs</h3>
+        <ul id="fw-list"></ul>
+    </div>
+
+    <div class="card health">
+        <h3>Service Health</h3>
+        <ul id="svc-list"></ul>
+    </div>
+
+    <div class="card notif">
+        <h3>Notification Alerts</h3>
+        <ul id="notif-list"></ul>
+    </div>
+</section>
+
 </body>
 </html>

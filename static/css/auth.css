@@ -1,0 +1,50 @@
+body {
+    background: #fff8f0;
+    font-family: Arial;
+}
+
+.container {
+    width: 380px;
+    margin: 100px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.15);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+}
+
+button {
+    width: 100%;
+    padding: 13px;
+    background: #f57c00;
+    color: white;
+    border: none;
+    border-radius: 6px;
+}
+
+.link {
+    text-align: center;
+    margin-top: 12px;
+}
+
+.link a {
+    color: #0056d6;         /* warna kontras */
+    text-decoration: none;
+    font-weight: 600;
+}
+.link a:hover {
+    text-decoration: underline;
+}
+
