@@ -9,53 +9,66 @@
 <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </head>
 <body>
+<div class="card-value" id="top-dst-port">-</div>
+<div class="card-sub">Port tujuan</div>
+</div>
 
-<header class="header">
-    <h1>Security Monitoring Dashboard</h1>
-    <div id="alert-box" class="alert-box">No Alerts</div>
-</header>
 
-<section class="grid-container">
-    <div class="card logs">
-        <h3>Real-time Logs</h3>
-        <pre id="log-output">Waiting logs...</pre>
-    </div>
-
-    <div class="card traffic">
-        <h3>Traffic & Requests</h3>
-        <canvas id="chartTraffic"></canvas>
-    </div>
-
-    <div class="card alert">
-        <h3>IDS/IPS Alerts</h3>
-        <ul id="ids-list"></ul>
-    </div>
-
-    <div class="card stat">
-        <h3>Attack Statistics</h3>
-        <canvas id="chartStats"></canvas>
-    </div>
-
-    <div class="card resource">
-        <h3>Server Resource Usage</h3>
-        <canvas id="chartResource"></canvas>
-    </div>
-
-    <div class="card firewall">
-        <h3>Blocked IPs</h3>
-        <ul id="fw-list"></ul>
-    </div>
-
-    <div class="card health">
-        <h3>Service Health</h3>
-        <ul id="svc-list"></ul>
-    </div>
-
-    <div class="card notif">
-        <h3>Notification Alerts</h3>
-        <ul id="notif-list"></ul>
-    </div>
+<div class="card" id="card-severity">
+<div class="card-title">Severity</div>
+<div class="severity-list" id="severity-list">
+<span class="sev low">Low: 0</span>
+<span class="sev med">Med: 0</span>
+<span class="sev high">High: 0</span>
+<span class="sev crit">Crit: 0</span>
+</div>
+</div>
 </section>
 
+
+<!-- Charts and lists -->
+<section class="grid">
+<div class="panel">
+<h2>Grafik Tren Serangan (per 5 menit)</h2>
+<canvas id="trendChart" height="140"></canvas>
+</div>
+
+
+<div class="panel wide">
+    <h2>Recent Alerts (Realtime)</h2>
+
+    <!-- WRAPPER UNTUK SCROLL -->
+    <div class="table-wrapper">
+        <table class="alerts-table">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Src IP</th>
+                    <th>Dst IP</th>
+                    <th>Port</th>
+                    <th>Signature</th>
+                    <th>Severity</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="alertsTbody">
+                <!-- rows injected by JS -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+</section>
+
+
+</main>
+
+
+
+<footer class="footer">Made for Suricata + Flask integration — sample static dashboard</footer>
+
+<script src="app.js"></script>
 </body>
 </html>

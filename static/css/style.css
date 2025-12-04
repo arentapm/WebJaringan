@@ -1,80 +1,284 @@
-/* Modern Glassmorphism Dashboard Style */
-
-body {
-    margin: 0;
-    font-family: "Inter", sans-serif;
-    background: radial-gradient(circle at top, #1e1f3f, #0f1125 70%);
-    color: #fff;
-    padding: 30px;
+:root{
+  /* Warna Dasar (Light Mode) */
+  --bg: #f4f6f9;         /* Latar belakang terang, soft grey */
+  --card: #ffffff;       /* Kartu/Panel putih bersih */
+  --text: #334155;       /* Teks utama (slate-700) */
+  --muted: #64748b;      /* Teks sekunder/muted (slate-500) */
+  
+  /* Warna Aksen/Interaktif */
+  --accent: #1e3a8a;     /* Deep Blue yang profesional (blue-900) */
+  --border: #e2e8f0;     /* Border/Separator yang soft (slate-200) */
+  --success: #059669;    /* Hijau untuk sukses (emerald-600) */
+  --danger: #dc2626;     /* Merah untuk bahaya/kritis (red-600) */
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 25px;
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(12px);
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+
+/* Gradient yang sangat lembut, hampir solid */
+body{
+  background:linear-gradient(180deg, var(--bg) 0%, #ebf1f7 100%); 
+  color:var(--text); 
+  min-height:100vh
 }
 
-.alert-box {
-    background: rgba(255, 77, 109, 0.8);
-    padding: 12px 18px;
-    border-radius: 10px;
-    font-weight: bold;
-    box-shadow: 0 3px 10px rgba(255, 77, 109, 0.4);
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 28px;
+  border-bottom:1px solid var(--border) /* Border lebih terlihat */
+}
+.topbar h1{font-size:18px; color: var(--accent); font-weight: 600;} /* Aksen pada judul */
+
+.container{padding:20px 28px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:18px}
+
+/* Card: putih bersih dengan shadow yang elegan */
+.card{
+  background:var(--card);
+  padding:12px;
+  border-radius:10px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.08); /* Shadow yang lebih ringan */
+  border: 1px solid var(--border);
 }
 
-/* New layout without rigid boxes */
-.grid-container {
-    margin-top: 30px;
-    display: grid;
-    gap: 25px;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+.card-title{font-size:12px;color:var(--muted);margin-bottom:6px; font-weight: 500;}
+.card-value{font-size:22px;font-weight:700; color: var(--text);} /* Sedikit lebih besar dan menggunakan warna teks utama */
+.card-sub{font-size:12px;color:var(--muted);margin-top:6px}
+.severity-list{display:flex;gap:8px;flex-wrap:wrap}
+
+/* Severity/Badges dengan background transparan dari warna dasarnya */
+.sev{padding:6px 8px;border-radius:8px;font-size:12px; font-weight: 600;}
+.sev.low{background:rgba(59,130,246,0.1);color:#2563eb}      /* Blue */
+.sev.med{background:rgba(249,115,22,0.1);color:#ea580c}      /* Orange */
+.sev.high{background:rgba(234,179,8,0.1);color:#ca8a04}      /* Yellow/Amber */
+.sev.crit{background:rgba(239,68,68,0.1);color:#ef4444}      /* Red */
+
+.grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+
+/* Panel: sama seperti card */
+.panel{
+  background:var(--card);
+  padding:14px;
+  border-radius:10px;
+  min-height:160px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  border: 1px solid var(--border);
+}
+.panel.wide{grid-column:1/ -1}
+.list{list-style:none;margin-top:8px}
+
+/* List Item: Border menggunakan warna border soft */
+.list li{
+  padding:8px 6px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  color: var(--text);
+}
+.list li:last-child {
+  border-bottom: none; /* Hilangkan border pada item terakhir */
 }
 
-.card {
-    padding: 25px;
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    transition: 0.35s;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+/* Alert Table */
+.alerts-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px; color: var(--text);}
+.alerts-table thead th{
+  background:var(--bg); 
+  padding:10px;
+  text-align:left;
+  color:var(--muted);
+  font-weight: 600;
+}
+.alerts-table tbody td{
+  padding:10px;
+  border-top:1px solid var(--border); /* Border soft */
+}
+.badge{padding:6px 8px;border-radius:6px;font-size:12px; font-weight: 500;}
+
+/* Badge: Menggunakan warna yang sama dengan sev, tapi dengan background yang lebih ringan */
+.badge.low{background:rgba(59,130,246,0.1);color:#2563eb}
+.badge.med{background:rgba(249,115,22,0.1);color:#ea580c}
+.badge.high{background:rgba(234,179,8,0.1);color:#ca8a04}
+.badge.crit{background:rgba(239,68,68,0.1);color:#ef4444}
+
+
+.footer{
+  padding:12px 28px;
+  color:var(--muted);
+  font-size:13px;
+  border-top:1px solid var(--border);
+  margin-top:20px;
+  background-color: var(--card); /* Footer memiliki background putih */
 }
 
-.card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.55);
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr}
 }
 
-.card h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.3rem;
-    letter-spacing: 0.5px;
-    font-weight: 600;
+/* Scrollable Recent Alerts Table */
+.table-wrapper{
+  max-height: 320px; 
+  overflow-y: auto; 
+  display: block;
+  border: 1px solid var(--border); /* Border soft */
+  border-radius: 8px;
+  margin-top: 8px;
 }
 
-/* Logs */
-pre {
-    background: rgba(0, 0, 0, 0.3);
-    height: 260px;
-    overflow-y: auto;
-    padding: 15px;
-    border-radius: 14px;
-    color: #b5e3ff;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+.table-wrapper table{
+  width: 100%;
+  border-collapse: collapse;
 }
 
-/* Lists */
-ul li {
-    background: rgba(255, 255, 255, 0.08);
-    margin: 8px 0;
-    padding: 10px 12px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
+/* Sticky header untuk tabel alert */
+.alerts-table thead th{
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Shadow kecil agar terlihat terangkat */
+}:root{
+  /* Warna Dasar (Light Mode) */
+  --bg: #f4f6f9;         /* Latar belakang terang, soft grey */
+  --card: #ffffff;       /* Kartu/Panel putih bersih */
+  --text: #334155;       /* Teks utama (slate-700) */
+  --muted: #64748b;      /* Teks sekunder/muted (slate-500) */
+  
+  /* Warna Aksen/Interaktif */
+  --accent: #1e3a8a;     /* Deep Blue yang profesional (blue-900) */
+  --border: #e2e8f0;     /* Border/Separator yang soft (slate-200) */
+  --success: #059669;    /* Hijau untuk sukses (emerald-600) */
+  --danger: #dc2626;     /* Merah untuk bahaya/kritis (red-600) */
 }
+
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+
+/* Gradient yang sangat lembut, hampir solid */
+body{
+  background:linear-gradient(180deg, var(--bg) 0%, #ebf1f7 100%); 
+  color:var(--text); 
+  min-height:100vh
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 28px;
+  border-bottom:1px solid var(--border) 
+}
+.topbar h1{font-size:18px; color: var(--accent); font-weight: 600;} 
+
+.container{padding:20px 28px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:18px}
+
+/* Card: putih bersih dengan shadow yang elegan */
+.card{
+  background:var(--card);
+  padding:12px;
+  border-radius:10px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.08); 
+  border: 1px solid var(--border);
+}
+
+.card-title{font-size:12px;color:var(--muted);margin-bottom:6px; font-weight: 500;}
+.card-value{font-size:22px;font-weight:700; color: var(--text);} 
+.card-sub{font-size:12px;color:var(--muted);margin-top:6px}
+.severity-list{display:flex;gap:8px;flex-wrap:wrap}
+
+/* Severity/Badges dengan background transparan dari warna dasarnya */
+.sev{padding:6px 8px;border-radius:8px;font-size:12px; font-weight: 600;}
+.sev.low{background:rgba(59,130,246,0.1);color:#2563eb}      
+.sev.med{background:rgba(249,115,22,0.1);color:#ea580c}      
+.sev.high{background:rgba(234,179,8,0.1);color:#ca8a04}      
+.sev.crit{background:rgba(239,68,68,0.1);color:#ef4444}      
+
+/* MODIFIKASI INTI: Mengubah grid menjadi 1 kolom penuh */
+.grid{
+  display:grid;
+  grid-template-columns:1fr; /* Hanya satu kolom, membuat grafik full width */
+  gap:18px
+}
+
+/* Panel: sama seperti card */
+.panel{
+  background:var(--card);
+  padding:14px;
+  border-radius:10px;
+  min-height:160px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  border: 1px solid var(--border);
+}
+
+/* Hapus .panel.wide karena sudah tidak relevan di grid 1fr */
+/* .panel.wide{grid-column:1/ -1} */ 
+
+.list{list-style:none;margin-top:8px}
+
+/* List Item: Border menggunakan warna border soft */
+.list li{
+  padding:8px 6px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  color: var(--text);
+}
+.list li:last-child {
+  border-bottom: none; 
+}
+
+/* Alert Table */
+.alerts-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px; color: var(--text);}
+.alerts-table thead th{
+  background:var(--bg); 
+  padding:10px;
+  text-align:left;
+  color:var(--muted);
+  font-weight: 600;
+}
+.alerts-table tbody td{
+  padding:10px;
+  border-top:1px solid var(--border); 
+}
+.badge{padding:6px 8px;border-radius:6px;font-size:12px; font-weight: 500;}
+
+/* Badge: Menggunakan warna yang sama dengan sev, tapi dengan background yang lebih ringan */
+.badge.low{background:rgba(59,130,246,0.1);color:#2563eb}
+.badge.med{background:rgba(249,115,22,0.1);color:#ea580c}
+.badge.high{background:rgba(234,179,8,0.1);color:#ca8a04}
+.badge.crit{background:rgba(239,68,68,0.1);color:#ef4444}
+
+
+.footer{
+  padding:12px 28px;
+  color:var(--muted);
+  font-size:13px;
+  border-top:1px solid var(--border);
+  margin-top:20px;
+  background-color: var(--card); 
+}
+
+/* Media query (max-width:900px) kini tidak diperlukan karena .grid sudah 1fr secara default */
+
+/* Scrollable Recent Alerts Table */
+.table-wrapper{
+  max-height: 320px; 
+  overflow-y: auto; 
+  display: block;
+  border: 1px solid var(--border); 
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.table-wrapper table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Sticky header untuk tabel alert */
+.alerts-table thead th{
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05); 
+}
+
